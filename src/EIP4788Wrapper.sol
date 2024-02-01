@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 contract EIP4788Wrapper {
     address public immutable beaconRootAddress = 0x000F3df6D732807Ef1319fB7B8bB8522d0Beac02;
+    bytes public currentBeaconRoot = "";
     
     function getParentBeaconRoot() external returns (bytes memory) {
         // Get the current timestamp
@@ -11,6 +12,8 @@ contract EIP4788Wrapper {
         (bool success, bytes memory result) = beaconRootAddress.call(abi.encode(currentTimestamp));
 
         require(success, "Function call failed");
+
+        currentBeaconRoot = result;
 
         return result;
     }
@@ -22,6 +25,8 @@ contract EIP4788Wrapper {
         (bool success, bytes memory result) = beaconRootAddress.call(abi.encode(currentTimestamp));
 
         require(success, "Function call failed");
+
+        currentBeaconRoot = result;
 
         return result;
     }
